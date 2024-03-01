@@ -1,0 +1,108 @@
+<main>
+  <header>
+    <h1 class="text-center mt-1">User Registration System</h1>
+    <hr class="hr-line" />
+  </header>
+
+  <section class="container mt-5">
+    <div class="mb-4">
+      <div class="row">
+        <div class="col-md-4">
+          <input
+            [(ngModel)]="userSchema.firstName"
+            type="text"
+            class="form-control mb-2"
+            placeholder="enter first name"
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            [(ngModel)]="userSchema.lastName"
+            type="text"
+            class="form-control mb-2"
+            placeholder="enter last name"
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            [(ngModel)]="userSchema.profile"
+            type="text"
+            class="form-control mb-2"
+            placeholder="enter profile"
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            [(ngModel)]="userSchema.email"
+            type="text"
+            class="form-control mb-2"
+            placeholder="enter email"
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            [(ngModel)]="userSchema.password"
+            type="text"
+            class="form-control mb-2"
+            placeholder="enter password"
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            [(ngModel)]="userSchema.confirmPassWord"
+            type="text"
+            class="form-control mb-2"
+            placeholder="enter confirm password"
+          />
+        </div>
+      </div>
+    </div>
+    @if (!isUpdateActive) {
+
+    <button class="btn btn-primary" (click)="addUserData()">Add Data</button>
+    <br />
+    } @else {
+
+    <button class="btn btn-warning" (click)="updateData()">Update</button>
+    }
+  </section>
+
+  <div class="container mt-4">
+    <h3>User Data</h3>
+    <hr />
+    @if (userData.length > 0) {
+    <div class="row">
+      @for (user of userData; track $index) {
+      <div class="col-md-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}</h5>
+            <p class="card-text">Profile: {{ user.profile }}</p>
+            <p class="card-text">Email: {{ user.email }}</p>
+            <p class="card-text">Password: {{ user.password }}</p>
+            <p class="card-text">
+              Added on: {{ user.addedDate | date : "medium" }}
+            </p>
+            <button class="btn btn-success" (click)="editData(user)">
+              Edit
+            </button>
+            <button class="btn btn-danger mx-4" (click)="removeData($index)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    <div class="text-center">
+      @if (userData.length>1) {
+      <button class="btn btn-danger" (click)="deleteAllData()">
+        Delete All
+      </button>
+      }
+    </div>
+    } @else {
+    <p>No user data available</p>
+    }
+  </div>
+</main>
